@@ -40,6 +40,9 @@ public class UmsMemberServiceImpl implements UmsMemberService {
             return CommonResult.failed("请输入验证码");
         }
         String realAuthCode = redisService.get(REDIS_KEY_PREFIX_AUTH_CODE + telephone);
+        if(realAuthCode == null) {
+            return CommonResult.failed("电话号码不存在");
+        }
         boolean result = realAuthCode.equals(authCode);
         if(result){
             return CommonResult.success(null, "验证成功");
