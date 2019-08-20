@@ -32,9 +32,9 @@ public class UmsAdminController {
     @ApiOperation("用户注册")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<UmsAdmin> register(@RequestBody UmsAdmin umsAdminPara, BindingResult result){
+    public CommonResult<UmsAdmin> register(@RequestBody UmsAdmin umsAdminPara, BindingResult result) {
         UmsAdmin umsAdmin = umsAdminService.register(umsAdminPara);
-        if(umsAdmin == null){
+        if (umsAdmin == null) {
             CommonResult.failed();
         }
         return CommonResult.success(umsAdmin);
@@ -43,9 +43,9 @@ public class UmsAdminController {
     @ApiOperation("登录以后返回Token")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult login(@RequestBody UmsAdminLoginPara umsAdminLoginPara, BindingResult result){
+    public CommonResult login(@RequestBody UmsAdminLoginPara umsAdminLoginPara, BindingResult result) {
         String token = umsAdminService.login(umsAdminLoginPara.getUsername(), umsAdminLoginPara.getPassword());
-        if(token == null){
+        if (token == null) {
             return CommonResult.validateFailed("用户名活密码错误");
         }
         Map<String, String> tokenMap = new HashMap<>();
@@ -57,7 +57,7 @@ public class UmsAdminController {
     @ApiOperation("获取用户所有权限")
     @RequestMapping(value = "/permission/{adminId}", method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult<List<UmsPermission>> getPermissionList(@PathVariable Long adminId){
+    public CommonResult<List<UmsPermission>> getPermissionList(@PathVariable Long adminId) {
         List<UmsPermission> permissionList = umsAdminService.getPermissionList(adminId);
         return CommonResult.success(permissionList);
     }
